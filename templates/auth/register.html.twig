@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../../template-html/style/style.css" rel="stylesheet">
+    <title>Streemi - Créer un compte</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="font-montserrat text-sm bg-gray-50">
+<div class="flex min-h-screen">
+    {% include 'parts/menu-left.html.twig' %}
+    <main class="flex-1">
+        <header class="font-bold text-lg flex items-center md:hidden">
+            <span class="mr-6">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7"/>
+                </svg>
+            </span>
+            <svg class="h-8 w-8 fill-red-600 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M10 15.5v-7c0-.41.47-.65.8-.4l4.67 3.5c.27.2.27.6 0 .8l-4.67 3.5c-.33.25-.8.01-.8-.4Zm11.96-4.45c.58 6.26-4.64 11.48-10.9 10.9 -4.43-.41-8.12-3.85-8.9-8.23 -.26-1.42-.19-2.78.12-4.04 .14-.58.76-.9 1.31-.7v0c.47.17.75.67.63 1.16 -.2.82-.27 1.7-.19 2.61 .37 4.04 3.89 7.25 7.95 7.26 4.79.01 8.61-4.21 7.94-9.12 -.51-3.7-3.66-6.62-7.39-6.86 -.83-.06-1.63.02-2.38.2 -.49.11-.99-.16-1.16-.64v0c-.2-.56.12-1.17.69-1.31 1.79-.43 3.75-.41 5.78.37 3.56 1.35 6.15 4.62 6.5 8.4ZM5.5 4C4.67 4 4 4.67 4 5.5 4 6.33 4.67 7 5.5 7 6.33 7 7 6.33 7 5.5 7 4.67 6.33 4 5.5 4Z"></path>
+            </svg>
+            <div class="tracking-wide flex-1">Streemi<span class="text-red-600">.</span></div>
+        </header>
+        <section class="h-full relative">
+            <div style="background-image: url('https://blog.compose.fr/wp-content/uploads/2024/05/Marathon-Cinema.webp')" class="bg-cover bg-no-repeat h-full before:bg-black/40 before:content-[''] before:top-0 before:left-0 before:right-0 before:absolute before:w-full before:h-full">
+                <div class="p-8 lg:w-1/2 mx-auto h-full flex items-center justify-center">
+                    <div class="bg-white rounded-lg p-8 relative w-full">
+                        <h1 class="text-center text-2xl font-extrabold text-gray-900">Rejoignez Streemi</h1>
+                        <p class="text-center text-gray-600 mt-2">Créez un compte pour découvrir des contenus illimités</p>
+                        <div class="flex items-center justify-center space-x-4 mt-8">
+                            <button class="max-w-xs font-bold shadow-sm rounded-lg py-3 px-6 bg-gray-100 hover:opacity-90 hover:scale-105 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
+                                <svg class="h-7 mr-3 fill-red-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>netflix</title><path d="M6.5,2H10.5L13.44,10.83L13.5,2H17.5V22C16.25,21.78 14.87,21.64 13.41,21.58L10.5,13L10.43,21.59C9.03,21.65 7.7,21.79 6.5,22V2Z" /></svg>
+                                Netflix
+                            </button>
+                            <button class="max-w-xs font-bold shadow-sm rounded-lg py-3 px-6 bg-gray-100 hover:opacity-90 hover:scale-105 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
+                                <svg class="h-7 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                                    <path fill="#29b6f6" d="M25.127,38.063c-0.414-0.011-0.83-0.011-1.242,0c-0.57-0.03-1.14-0.052-1.71-0.093c-1.513-0.115-3.017-0.342-4.487-0.685c-5.09-1.181-9.557-3.555-13.455-7.006c-0.364-0.323-0.705-0.653-1.058-0.986c-0.082-0.074-0.156-0.177-0.197-0.28c-0.063-0.145-0.03-0.301,0.074-0.414c0.104-0.113,0.271-0.156,0.414-0.093c0.093,0.041,0.186,0.082,0.271,0.134c3.722,2.302,7.784,3.98,12.044,4.975c1.431,0.332,2.87,0.59,4.322,0.778c2.083,0.26,4.186,0.353,6.28,0.28c1.129-0.03,2.25-0.134,3.369-0.28c2.612-0.332,5.194-0.923,7.691-1.752c1.316-0.434,2.601-0.934,3.856-1.513c0.186-0.104,0.414-0.134,0.622-0.082c0.342,0.082,0.549,0.434,0.466,0.778c-0.011,0.041-0.03,0.093-0.052,0.134c-0.082,0.156-0.197,0.29-0.342,0.393c-1.192,0.934-2.478,1.752-3.835,2.436c-2.56,1.294-5.298,2.218-8.116,2.747C28.414,37.824,26.777,38,25.127,38.063z"></path>
+                                </svg>
+                                Prime
+                            </button>
+                        </div>
+                        <p class="text-center text-gray-500 mt-6">Ou remplissez le formulaire ci-dessous :</p>
+                        <form class="mt-6 space-y-4">
+                            <input class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm placeholder-gray-500 focus:outline-none focus:border-gray-400 focus:bg-white" type="text" placeholder="Nom complet"/>
+                            <input class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm placeholder-gray-500 focus:outline-none focus:border-gray-400 focus:bg-white" type="email" placeholder="Adresse email"/>
+                            <input class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm placeholder-gray-500 focus:outline-none focus:border-gray-400 focus:bg-white" type="password" placeholder="Mot de passe"/>
+                            <input class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm placeholder-gray-500 focus:outline-none focus:border-gray-400 focus:bg-white" type="password" placeholder="Confirmez le mot de passe"/>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="terms" name="terms" class="mr-2">
+                                <label for="terms" class="text-sm">J'accepte les <a href="#" class="text-red-600">conditions générales</a> et la <a href="#" class="text-red-600">politique de confidentialité</a>.</label>
+                            </div>
+                            <button class="w-full bg-red-600 py-3 text-white rounded-lg hover:opacity-90 transition-all duration-300">Créer un compte</button>
+                        </form>
+                        <div class="text-center mt-8">
+                            <a href="/login" class="text-red-600 hover:underline">Vous avez déjà un compte ? Connectez-vous</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+</body>
