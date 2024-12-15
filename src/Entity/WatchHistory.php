@@ -25,9 +25,7 @@ class WatchHistory
 
     #[ORM\Column(type: 'integer')]
     private int $numberOfViews;
-
     // Getters and Setters
-
     public function getId(): int
     {
         return $this->id;
