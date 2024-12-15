@@ -1,14 +1,10 @@
 <?php
-
 declare(strict_types=1);
-
 namespace App\Controller\Security;
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
 class AuthController extends AbstractController
 {
     /**
@@ -68,7 +64,7 @@ class AuthController extends AbstractController
      */
     public function logout(): RedirectResponse
     {
-        // Redirection vers la page d'accueil après déconnexion
+                // Redirection vers la page d'accueil après déconnexion
         return $this->redirectToRoute('homepage');
     }
 }

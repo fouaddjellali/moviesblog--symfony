@@ -1,0 +1,25 @@
+<li class="mt-6 {% if isSubComment|default(false) %}pl-6 border-l-4{% endif %}">
+    <div class="bg-gray-100 p-4 rounded-lg shadow-sm">
+        <div class="flex items-center">
+            <img 
+                src="https://random.imagecdn.app/100/100?seed={{ comment.publisher.username }}" 
+                class="w-10 h-10 rounded-full" 
+                alt="Avatar de {{ comment.publisher.username }}">
+            <div class="ml-4 flex-1">
+                <div class="flex justify-between items-center">
+                    <span class="font-semibold text-gray-800">{{ comment.publisher.username }}</span>
+                    <span class="text-xs text-gray-500">
+                        {% if comment.publishedAt is defined %}
+                            {{ comment.publishedAt|date('d/m/Y H:i') }}
+                        {% else %}
+                            Date inconnue
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <p class="mt-3 text-gray-700">
+            {{ comment.content }}
+        </p>
+    </div>
+</li>

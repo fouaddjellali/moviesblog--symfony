@@ -1,0 +1,15 @@
+<li class="relative rounded-xl overflow-hidden transition transform cursor-pointer hover:scale-105 hover:opacity-90 hover:shadow-lg">
+    <img 
+        src="{{ user.image }}" 
+        class="object-cover h-full w-full" 
+        alt="Photo de profil de {{ user.name }}" 
+        aria-hidden="true">
+    <div 
+        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent p-4 flex flex-col justify-end" 
+        role="presentation">
+        <div class="self-center flex flex-col items-center space-y-1">
+            <span class="capitalize text-white font-semibold text-base drop-shadow-sm">{{ user.name }}</span>
+            <span class="text-gray-200 text-sm">{{ user.role }}</span>
+        </div>
+    </div>
+</li>
