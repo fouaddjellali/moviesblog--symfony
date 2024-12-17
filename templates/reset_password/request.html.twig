@@ -32,20 +32,13 @@
                     <div class="bg-white rounded-lg p-8 relative w-full">
                         <h1 class="text-center text-2xl font-extrabold text-gray-900">Réinitialiser votre mot de passe</h1>
                         <p class="text-center text-gray-600 mt-2">Entrez votre adresse email pour recevoir un lien de réinitialisation.</p>
-
                         {% for flash_error in app.flashes('reset_password_error') %}
                             <div class="mt-4 text-red-600 text-sm text-center">
                                 {{ flash_error }}
                             </div>
                         {% endfor %}
-
                         {{ form_start(requestForm, {'attr': {'class': 'mt-6 space-y-4'}}) }}
-         
-                            <button type="submit" class="w-full bg-red-600 py-3 text-white rounded-lg hover:opacity-90 transition-all duration-300">
-                                Envoyer l'email de réinitialisation
-                            </button>
                         {{ form_end(requestForm) }}
-
                         <div class="text-center mt-8">
                             <p class="text-gray-500">
                                 <a href="{{ path('app_login') }}" class="text-red-600 hover:underline">Retour à la connexion</a>

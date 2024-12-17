@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +8,6 @@
     <title>Streemi - Renitialisé le mot de passe</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-
 <body class="font-montserrat text-sm bg-gray-50">
 <div class="flex min-h-screen">
     {% include 'parts/menu-left.html.twig' %}
@@ -31,7 +29,6 @@
                     <div class="bg-white rounded-lg p-8 relative w-full">
                         <h1 class="text-center text-2xl font-extrabold text-gray-900">Réiniatialise ton mot de passe</h1>
                         <p class="text-center text-sm text-gray-600 mt-5">Definisser un nouveau mot de passe fort pour securisé votre compte.</p>
-
                         <div class="font-medium mt-8 bg-blue-50 border border-blue-200 rounded-lg px-8 py-4 text-blue-700">
                             Votre mot de passe devrai contenir :
                             <ul class="list-disc pl-5 mt-2">
@@ -40,7 +37,6 @@
                                 <li>Un chiffre au moin</li>
                             </ul>
                         </div>
-
                         <form class="mt-10">
                             <div class="relative">
                                 <input disabled class="w-full px-8 py-4 rounded-lg font-medium bg-gray-300 cursor-not-allowed border border-gray-300 placeholder-gray-500 text-sm focus:outline-none opacity-70" id="username" type="text" placeholder="Adress Email"/>
@@ -63,7 +59,6 @@
                                     Modifie mon mot de passe
                                 </button>
                             </div>
-
                             <div class="flex items-center justify-center mt-16">
                                 <a class="text-red-600 cursor-pointer transition hover:text-red-700 hover:scale-105">
                                     Vous avez souvenance de votre mots de passe ? Connectez toi ici
@@ -76,5 +71,4 @@
         </section>
     </main>
 </div>
-
 </body>

@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\ChangePasswordFormType;
+use App\Form\ResetPasswordFormType;
 use App\Form\ResetPasswordRequestFormType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,6 +15,10 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+
 #[Route('/reset-password')]
 class ResetPasswordController extends AbstractController
 {
@@ -37,7 +41,9 @@ class ResetPasswordController extends AbstractController
      * pour générer un token de réinitialisation du mot de passe.
      */
     #[Route('', name: 'app_forgot_password_request', methods: ['GET', 'POST'])]
-    public function request(Request $request, UserRepository $userRepository): Response
+    public function request(Request $request, UserRepository $userRepository,
+        MailerInterface $mailer,
+        UrlGeneratorInterface $urlGenerator): Response
     {
         $form = $this->createForm(ResetPasswordRequestFormType::class);
         $form->handleRequest($request);
@@ -45,7 +51,9 @@ class ResetPasswordController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             return $this->processSendingPasswordResetEmail(
                 $form->get('email')->getData(),
-                $userRepository
+                $userRepository,
+                $mailer,
+                $urlGenerator
             );
         }
 
@@ -58,23 +66,45 @@ class ResetPasswordController extends AbstractController
      * Génère un token et l'affiche directement dans la réponse.
      * Aucun email n'est envoyé.
      */
-    private function processSendingPasswordResetEmail(string $email, UserRepository $userRepository): Response
+    private function processSendingPasswordResetEmail(string $email, UserRepository $userRepository,
+        MailerInterface $mailer,
+        UrlGeneratorInterface $urlGenerator): Response
     {
         $user = $userRepository->findOneBy(['email' => $email]);
 
         // On ne révèle pas si l'utilisateur n'existe pas
         if (!$user) {
-            return new Response('Si un compte existe avec cet email, un token de réinitialisation a été généré (non affiché).');
+            return new Response('Si un compte existe avec cet email, un lien de réinitialisation a été envoyé.');
         }
 
         try {
+            // Génération du token
             $resetToken = $this->resetPasswordHelper->generateResetToken($user);
         } catch (\Throwable $e) {
             return new Response('Impossible de générer un token. Veuillez réessayer plus tard.');
         }
 
-        // Affichage direct du token
-        return new Response('Voici votre token de réinitialisation : ' . $resetToken->getToken());
+        // Génération du lien de réinitialisation
+        $resetUrl = $urlGenerator->generate(
+            'app_reset_password', // Nom de la route pour le traitement de la réinitialisation
+            ['token' => $resetToken->getToken()],
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
+
+        // Création de l'email
+        $emailMessage = (new Email())
+            ->from('no-reply@example.com') // Adresse de l'expéditeur
+            ->to($email) // Adresse du destinataire
+            ->subject('Réinitialisation de votre mot de passe')
+            ->html('<p>Bonjour,</p>
+                <p>Pour réinitialiser votre mot de passe, veuillez cliquer sur le lien suivant :</p>
+                <p><a href="' . $resetUrl . '">Réinitialiser mon mot de passe</a></p>
+                <p>Si vous n\'avez pas fait cette demande, ignorez cet email.</p>');
+
+        // Envoi de l'email
+        $mailer->send($emailMessage);
+
+        return new Response('Un lien de réinitialisation a été envoyé à votre adresse email.');
     }
 
     /**
@@ -105,7 +135,7 @@ class ResetPasswordController extends AbstractController
             return $this->redirectToRoute('app_forgot_password_request');
         }
 
-        $form = $this->createForm(ChangePasswordFormType::class);
+        $form = $this->createForm(ResetPasswordFormType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -124,7 +154,6 @@ class ResetPasswordController extends AbstractController
 
             return $this->redirectToRoute('app_login');
         }
-
         return $this->render('reset_password/reset.html.twig', [
             'resetForm' => $form->createView(),
         ]);

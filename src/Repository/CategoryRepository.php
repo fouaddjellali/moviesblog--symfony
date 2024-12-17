@@ -15,7 +15,6 @@ class CategoryRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Category::class);
     }
-
     /**
      * Retourne une liste des catégories populaires.
      *
