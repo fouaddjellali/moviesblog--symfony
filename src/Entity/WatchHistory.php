@@ -2,76 +2,81 @@
 
 namespace App\Entity;
 
+use App\Repository\WatchHistoryRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: WatchHistoryRepository::class)]
 class WatchHistory
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private int $id;
+    #[ORM\Column]
+    private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\Column]
+    private ?\DateTimeImmutable $lastWatchedAt = null;
+
+    #[ORM\Column]
+    private ?int $numberOfViews = null;
+
+    #[ORM\ManyToOne(inversedBy: 'watchHistories')]
     #[ORM\JoinColumn(nullable: false)]
-    private User $user;
+    private ?User $watcher = null;
 
-    #[ORM\ManyToOne(targetEntity: Media::class)]
+    #[ORM\ManyToOne(inversedBy: 'watchHistories')]
     #[ORM\JoinColumn(nullable: false)]
-    private Media $media;
+    private ?Media $media = null;
 
-    #[ORM\Column(type: 'datetime')]
-    private \DateTimeInterface $lastWatched;
-
-    #[ORM\Column(type: 'integer')]
-    private int $numberOfViews;
-    // Getters and Setters
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUser(): User
+    public function getLastWatchedAt(): ?\DateTimeImmutable
     {
-        return $this->user;
+        return $this->lastWatchedAt;
     }
 
-    public function setUser(User $user): self
+    public function setLastWatchedAt(\DateTimeImmutable $lastWatchedAt): static
     {
-        $this->user = $user;
+        $this->lastWatchedAt = $lastWatchedAt;
+
         return $this;
     }
 
-    public function getMedia(): Media
-    {
-        return $this->media;
-    }
-
-    public function setMedia(Media $media): self
-    {
-        $this->media = $media;
-        return $this;
-    }
-
-    public function getLastWatched(): \DateTimeInterface
-    {
-        return $this->lastWatched;
-    }
-
-    public function setLastWatched(\DateTimeInterface $lastWatched): self
-    {
-        $this->lastWatched = $lastWatched;
-        return $this;
-    }
-
-    public function getNumberOfViews(): int
+    public function getNumberOfViews(): ?int
     {
         return $this->numberOfViews;
     }
 
-    public function setNumberOfViews(int $numberOfViews): self
+    public function setNumberOfViews(int $numberOfViews): static
     {
         $this->numberOfViews = $numberOfViews;
+
+        return $this;
+    }
+
+    public function getWatcher(): ?User
+    {
+        return $this->watcher;
+    }
+
+    public function setWatcher(?User $watcher): static
+    {
+        $this->watcher = $watcher;
+
+        return $this;
+    }
+
+    public function getMedia(): ?Media
+    {
+        return $this->media;
+    }
+
+    public function setMedia(?Media $media): static
+    {
+        $this->media = $media;
+
         return $this;
     }
 }

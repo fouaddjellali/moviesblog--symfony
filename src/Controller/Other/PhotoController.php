@@ -26,20 +26,7 @@ class PhotoController extends AbstractController
  *
  * @Route(path: '/upload', name: 'photo_upload_process', methods: ['POST'])
  */
-public function processUpload(Request $request): Response
-{
-    $uploadedFile = $request->files->get('photo');
-    if ($uploadedFile && $uploadedFile->isValid()) {
-        $newFilename = uniqid() . '.' . $uploadedFile->guessExtension();
-        $uploadedFile->move($this->getParameter('upload_directory'), $newFilename);
 
-        $this->addFlash('success', 'Photo téléchargée avec succès !');
-        return $this->redirectToRoute('photo_upload');
-    }
-
-    $this->addFlash('error', 'Échec du téléchargement. Veuillez réessayer.');
-    return $this->redirectToRoute('photo_upload');
-}
 
 
 

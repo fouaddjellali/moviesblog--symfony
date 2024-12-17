@@ -2,77 +2,80 @@
 
 namespace App\Entity;
 
+use App\Repository\EpisodeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: EpisodeRepository::class)]
 class Episode
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private int $id;
+    #[ORM\Column]
+    private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: Season::class)]
+    #[ORM\Column(length: 255)]
+    private ?string $title = null;
+
+    #[ORM\Column]
+    private ?int $duration = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $releasedAt = null;
+
+    #[ORM\ManyToOne(inversedBy: 'episodes')]
     #[ORM\JoinColumn(nullable: false)]
-    private Season $season;
+    private ?Season $season = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private string $title;
-
-    #[ORM\Column(type: 'time')]
-    private \DateTimeInterface $duration;
-
-    #[ORM\Column(type: 'date')]
-    private \DateTimeInterface $releaseDate;
-
-    // Getters and Setters
-
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getSeason(): Season
-    {
-        return $this->season;
-    }
-
-    public function setSeason(Season $season): self
-    {
-        $this->season = $season;
-        return $this;
-    }
-
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(string $title): static
     {
         $this->title = $title;
+
         return $this;
     }
 
-    public function getDuration(): \DateTimeInterface
+    public function getDuration(): ?int
     {
         return $this->duration;
     }
 
-    public function setDuration(\DateTimeInterface $duration): self
+    public function setDuration(int $duration): static
     {
         $this->duration = $duration;
+
         return $this;
     }
 
-    public function getReleaseDate(): \DateTimeInterface
+    public function getReleasedAt(): ?\DateTimeImmutable
     {
-        return $this->releaseDate;
+        return $this->releasedAt;
     }
 
-    public function setReleaseDate(\DateTimeInterface $releaseDate): self
+    public function setReleasedAt(\DateTimeImmutable $releasedAt): static
     {
-        $this->releaseDate = $releaseDate;
+        $this->releasedAt = $releasedAt;
+
+        return $this;
+    }
+
+    public function getSeason(): ?Season
+    {
+        return $this->season;
+    }
+
+    public function setSeason(?Season $season): static
+    {
+        $this->season = $season;
+
         return $this;
     }
 }

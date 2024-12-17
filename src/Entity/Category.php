@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\LanguageRepository;
+use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: LanguageRepository::class)]
-class Language
+#[ORM\Entity(repositoryClass: CategoryRepository::class)]
+class Category
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,13 +18,13 @@ class Language
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 3)]
-    private ?string $code = null;
+    #[ORM\Column(length: 255)]
+    private ?string $label = null;
 
     /**
      * @var Collection<int, Media>
      */
-    #[ORM\ManyToMany(targetEntity: Media::class, mappedBy: 'languages')]
+    #[ORM\ManyToMany(targetEntity: Media::class, mappedBy: 'categories')]
     private Collection $medias;
 
     public function __construct()
@@ -49,14 +49,14 @@ class Language
         return $this;
     }
 
-    public function getCode(): ?string
+    public function getLabel(): ?string
     {
-        return $this->code;
+        return $this->label;
     }
 
-    public function setCode(string $code): static
+    public function setLabel(string $label): static
     {
-        $this->code = $code;
+        $this->label = $label;
 
         return $this;
     }
@@ -73,7 +73,7 @@ class Language
     {
         if (!$this->medias->contains($media)) {
             $this->medias->add($media);
-            $media->addLanguage($this);
+            $media->addCategory($this);
         }
 
         return $this;
@@ -82,7 +82,7 @@ class Language
     public function removeMedia(Media $media): static
     {
         if ($this->medias->removeElement($media)) {
-            $media->removeLanguage($this);
+            $media->removeCategory($this);
         }
 
         return $this;

@@ -17,7 +17,7 @@ class MediaLanguages
 
     #[ORM\ManyToOne(targetEntity: Language::class)]
     #[ORM\JoinColumn(nullable: false)]
-    private Languages $language;
+    private Language $language;
 
     // Getters and Setters
 
@@ -37,12 +37,12 @@ class MediaLanguages
         return $this;
     }
 
-    public function getLanguage(): Languages
+    public function getLanguage(): Language
     {
         return $this->language;
     }
 
-    public function setLanguage(Languages $language): self
+    public function setLanguage(Language $language): self
     {
         $this->language = $language;
         return $this;

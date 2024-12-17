@@ -2,62 +2,66 @@
 
 namespace App\Entity;
 
+use App\Repository\PlaylistSubscriptionRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: PlaylistSubscriptionRepository::class)]
 class PlaylistSubscription
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private int $subscriptionId;
+    #[ORM\Column]
+    private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\Column]
+    private ?\DateTimeImmutable $subscribedAt = null;
+
+    #[ORM\ManyToOne(inversedBy: 'playlistSubscriptions')]
     #[ORM\JoinColumn(nullable: false)]
-    private User $user;
+    private ?User $subscriber = null;
 
-    #[ORM\ManyToOne(targetEntity: Playlist::class)]
+    #[ORM\ManyToOne(inversedBy: 'playlistSubscriptions')]
     #[ORM\JoinColumn(nullable: false)]
-    private Playlist $playlist;
+    private ?Playlist $playlist = null;
 
-    #[ORM\Column(type: 'datetime')]
-    private \DateTimeInterface $subscribedAt;
-    // Getters and Setters
-    public function getSubscriptionId(): int
+    public function getId(): ?int
     {
-        return $this->subscriptionId;
+        return $this->id;
     }
 
-    public function getUser(): User
-    {
-        return $this->user;
-    }
-
-    public function setUser(User $user): self
-    {
-        $this->user = $user;
-        return $this;
-    }
-
-    public function getPlaylist(): Playlist
-    {
-        return $this->playlist;
-    }
-
-    public function setPlaylist(Playlist $playlist): self
-    {
-        $this->playlist = $playlist;
-        return $this;
-    }
-
-    public function getSubscribedAt(): \DateTimeInterface
+    public function getSubscribedAt(): ?\DateTimeImmutable
     {
         return $this->subscribedAt;
     }
 
-    public function setSubscribedAt(\DateTimeInterface $subscribedAt): self
+    public function setSubscribedAt(\DateTimeImmutable $subscribedAt): static
     {
         $this->subscribedAt = $subscribedAt;
+
+        return $this;
+    }
+
+    public function getSubscriber(): ?User
+    {
+        return $this->subscriber;
+    }
+
+    public function setSubscriber(?User $subscriber): static
+    {
+        $this->subscriber = $subscriber;
+
+        return $this;
+    }
+
+    public function getPlaylist(): ?Playlist
+    {
+        return $this->playlist;
+    }
+
+    public function setPlaylist(?Playlist $playlist): static
+    {
+        $this->playlist = $playlist;
+
         return $this;
     }
 }
